@@ -1,3 +1,4 @@
+import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -14,8 +15,54 @@ class TicTacToeTest {
     }
 
     @Test(expected = RuntimeException::class)
-    fun `when X Outside Board Then Runtime Exception`() {
+    fun `when X outside board then runtime exception`() {
         ticTacToe.play(5,2)
+    }
+
+    @Test(expected = RuntimeException::class)
+    fun `when Y outside board then runtime exception`() {
+        ticTacToe.play(2,5)
+    }
+
+    @Test(expected = RuntimeException::class)
+    fun `when occupied then tuntime exception`() {
+        ticTacToe.play(2,1)
+        ticTacToe.play(2,1)
+    }
+
+    @Test
+    fun `given first turn when next player then X`() {
+        assertEquals('X', ticTacToe.nextPlayer())
+    }
+
+    @Test
+    fun `given last turn was was X when next player then O`() {
+        ticTacToe.play(1,1)
+        assertEquals('O', ticTacToe.nextPlayer())
+    }
+
+    @Test
+    fun `when play then no winner`() {
+        assertEquals("No winner", ticTacToe.play(1,1))
+    }
+
+    @Test
+    fun `when play and whole horizontal line then winner`() {
+        ticTacToe.play(1,1)  // X
+        ticTacToe.play(2,1)  // O
+        ticTacToe.play(1,2)  // X
+        ticTacToe.play(2,2)  // O
+        assertEquals("X is the winner", ticTacToe.play(1,3))
+    }
+
+    @Test
+    fun `when play and whole vertical line then winner`() {
+        ticTacToe.play(2,1) // X
+        ticTacToe.play(1,3)  // O
+        ticTacToe.play(3,1)  // X
+        ticTacToe.play(2,3)  // O
+        ticTacToe.play(2,2)  // X
+        assertEquals("O is the winner", ticTacToe.play(3,3))
     }
 }
 
