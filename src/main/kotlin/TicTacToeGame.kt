@@ -10,14 +10,29 @@ class TicTacToeGame {
         checkAxis(x)
         checkAxis(y)
         player = nextPlayer()
-        setPlayerInBoard(x, y, player)
+        setPlayerOnBoard(x, y, player)
         if(isWinner()){
             return player + " is the winner"
+        }else if(draw()){
+            return "The result is draw"
         }
         return "No winner"
     }
 
-    private fun setPlayerInBoard(x: Int, y: Int, player: Char) {
+    private fun draw(): Boolean {
+
+        for(row in 0..2){
+            for(column in 0..2){
+                if(board[row][column]=='\u0000'){
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    private fun setPlayerOnBoard(x: Int, y: Int, player: Char) {
         if (board[x - 1][y - 1] != '\u0000') {
             throw RuntimeException("Board is occupied.")
         } else {
@@ -40,6 +55,11 @@ class TicTacToeGame {
             }
         }
 
+        if(board[0][0] == player && board[1][1] == player && board[2][2] == player){
+            return true
+        }else if(board[2][0] == player && board[1][1] == player && board[0][2] == player){
+            return true
+        }
         return false
     }
 

@@ -64,6 +64,37 @@ class TicTacToeTest {
         ticTacToe.play(2,2)  // X
         assertEquals("O is the winner", ticTacToe.play(3,3))
     }
+
+    @Test
+    fun `when play and top bottom diagonal line then winner`() {
+        ticTacToe.play(1,1) // X
+        ticTacToe.play(1,2) // O
+        ticTacToe.play(2,2) // X
+        ticTacToe.play(1,3) // O
+        assertEquals("X is the winner", ticTacToe.play(3,3))
+    }
+
+    @Test
+    fun `when play and bottom top diagonal liiine then winner`() {
+        ticTacToe.play(1,3)  // X
+        ticTacToe.play(1,1)  // O
+        ticTacToe.play(2,2)  // X
+        ticTacToe.play(1,2)  // O
+        assertEquals("X is the winner", ticTacToe.play(3,1))
+    }
+
+    @Test
+    fun `when all boxes are filled then draw`() {
+        ticTacToe.play(1,1)
+        ticTacToe.play(1,2)
+        ticTacToe.play(1,3)
+        ticTacToe.play(2,1)
+        ticTacToe.play(2,3)
+        ticTacToe.play(2,2)
+        ticTacToe.play(3,1)
+        ticTacToe.play(3,3)
+        assertEquals("The result is draw", ticTacToe.play(3,2))
+    }
 }
 
 
